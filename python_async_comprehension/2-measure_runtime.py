@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 '''
-Python - Async
+Python - Async Comprehension
 '''
 import asyncio
 import time
 
 
-wait_n = __import__('1-concurrent_coroutines').wait_n
+async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
-def measure_time(n: int, max_delay: int) -> float:
+async def measure_runtime() -> float:
     '''
-    Fuction that returns total_time / n
+    should measure the total runtime and return it
     '''
-    start_time = time.time()
-    asyncio.run(wait_n(n, max_delay))
-    end_time = time.time()
-    total_time = end_time - start_time
-    return total_time / n
+    start = time.time()
+    await asyncio.gather(*(async_comprehension() for _ in range(4)))
+    end = time.time()
+    return end - start
+    
